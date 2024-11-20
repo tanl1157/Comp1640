@@ -1,0 +1,44 @@
+@model IEnumerable<Idea.Models.Department>
+
+@{
+    ViewData["Title"] = "Department List";
+}
+
+<div class="container py-5">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1 class="text-primary">Department List</h1>
+        <a asp-action="Create" class="btn btn-success">
+            <span class="material-icons">add</span> Create New
+        </a>
+    </div>
+
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th class="text-center">Department Name</th>
+                <th class="text-center">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="text-center align-middle">
+                        @Html.DisplayFor(modelItem => item.Name)
+                    </td>
+                    <td class="text-center align-middle">
+                        <a asp-action="Edit" asp-route-id="@item.Id" class="btn btn-warning btn-sm">
+                            <span class="material-icons">edit</span> Edit
+                        </a>
+                        <a asp-action="Details" asp-route-id="@item.Id" class="btn btn-info btn-sm">
+                            <span class="material-icons">info</span> Details
+                        </a>
+                        <a asp-action="Delete" asp-route-id="@item.Id" class="btn btn-danger btn-sm">
+                            <span class="material-icons">delete</span> Delete
+                        </a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

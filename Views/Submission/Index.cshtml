@@ -1,0 +1,62 @@
+﻿@model IEnumerable<Idea.Models.Submission>
+
+@{
+    ViewData["Title"] = "Submission List";
+}
+
+<div class="container py-5">
+    <div class="text-center mb-4">
+        <h1 class="text-primary">Submission List</h1>
+        <p class="text-muted">Manage and view all submissions along with their deadlines.</p>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr class="text-center">
+                    <th>@Html.DisplayNameFor(model => model.Name)</th>
+                    <th>@Html.DisplayNameFor(model => model.Deadline_1)</th>
+                    <th>@Html.DisplayNameFor(model => model.Deadline_2)</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    var bgColor = "table-success";
+
+                    if (item.Deadline_2 < DateTime.Now)
+                    {
+                        bgColor = "table-danger";
+                    }
+                    else if (item.Deadline_1 < DateTime.Now)
+                    {
+                        bgColor = "table-warning";
+                    }
+
+                    <tr class="@bgColor text-center align-middle">
+                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Deadline_1)</td>
+                        <td>@Html.DisplayFor(modelItem => item.Deadline_2)</td>
+                        <td>
+                            <div class="d-flex justify-content-center">
+                                <a asp-action="ViewIdeas" asp-route-submissionid="@item.Id" class="btn btn-primary btn-sm mx-1">
+                                    <span class="material-icons">visibility</span> View
+                                </a>
+                                @if (User.IsInRole("Manager"))
+                                {
+                                    <a asp-action="ExportZIP" asp-route-submissionid="@item.Id" class="btn btn-success btn-sm mx-1">
+                                        <span class="material-icons">archive</span> Export ZIP
+                                    </a>
+                                    <a asp-action="ExportExcel" asp-route-submissionid="@item.Id" class="btn btn-info btn-sm mx-1">
+                                        <span class="material-icons">table_chart</span> Export Excel
+                                    </a>
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

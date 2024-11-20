@@ -1,0 +1,32 @@
+@model Idea.Models.Category
+
+@{
+    ViewData["Title"] = "Category Details";
+}
+
+<div class="container py-5">
+    <div class="text-center mb-4">
+        <h1 class="text-primary">Category Details</h1>
+        <p class="text-muted">Here is the detailed information about the selected category.</p>
+    </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-body">
+            <h4 class="text-secondary">Category Information</h4>
+            <hr />
+            <dl class="row">
+                <dt class="col-sm-4 text-end fw-bold">Category Name</dt>
+                <dd class="col-sm-8 text-start">@Html.DisplayFor(model => model.Name)</dd>
+            </dl>
+        </div>
+    </div>
+
+    <div class="d-flex justify-content-center">
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-warning me-3">
+            <span class="material-icons">edit</span> Edit
+        </a>
+        <a asp-action="Index" class="btn btn-secondary">
+            <span class="material-icons">arrow_back</span> Back to List
+        </a>
+    </div>
+</div>

@@ -1,0 +1,88 @@
+﻿@model Idea.Models.Submission
+
+@{
+    ViewData["Title"] = "Submission Details";
+    var Ideas = (List<NIdea>)ViewData["Ideas"];
+}
+
+<div class="container py-5">
+    <div class="text-center mb-4">
+        <h1 class="text-primary">Submission Details</h1>
+        <p class="text-muted">View details of the submission and its associated ideas.</p>
+    </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Submission Information</h4>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">Name</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Name)</dd>
+
+                <dt class="col-sm-3">Deadline 1</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Deadline_1)</dd>
+
+                <dt class="col-sm-3">Deadline 2</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Deadline_2)</dd>
+            </dl>
+        </div>
+    </div>
+
+    <!-- Add Idea Button -->
+    @if ((DateTime.Now - Model.Deadline_1).TotalMilliseconds <= 0)
+    {
+        <div class="text-center mb-4">
+            <a asp-action="AddIdea" asp-route-submissionid="@Model.Id" class="btn btn-success">
+                <span class="material-icons">add</span> Add
+            </a>
+        </div>
+    }
+
+    <!-- Ideas Table -->
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead class="table-dark">
+                <tr class="text-center">
+                    <th>Title</th>
+                    <th>Brief</th>
+                    <th>Views</th>
+                    <th>Likes</th>
+                    <th>Dislikes</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var idea in Ideas)
+                {
+                    <tr class="text-center align-middle">
+                        <td>@idea.Title</td>
+                        <td>@idea.Brief</td>
+                        <td>@idea.View</td>
+                        <td>@idea.Reactions.Where(r => r.Type == 1).Count()</td>
+                        <td>@idea.Reactions.Where(r => r.Type == 2).Count()</td>
+                        <td>
+                            <div class="d-flex justify-content-center">
+                                <a asp-action="IdeaDetails" class="btn btn-info btn-sm mx-1" asp-route-id="@idea.Id">
+                                    <span class="material-icons">visibility</span> Details
+                                </a>
+                                <a asp-action="Like" class="btn btn-success btn-sm mx-1" asp-route-ideaid="@idea.Id">
+                                    <span class="material-icons">thumb_up</span> Like
+                                </a>
+                                <a asp-action="Dislike" class="btn btn-danger btn-sm mx-1" asp-route-ideaid="@idea.Id">
+                                    <span class="material-icons">thumb_down</span> Dislike
+                                </a>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-center">
+        <a asp-action="Index" class="btn btn-secondary">
+            <span class="material-icons">arrow_back</span> Back to List
+        </a>
+    </div>
+</div>

@@ -1,0 +1,62 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+    
+
+    // Lấy danh sách hình ảnh từ ViewBag, đảm bảo kiểm tra null
+    var imagePaths = ViewBag.ImagePaths as List<string> ?? new List<string>();
+}
+<style>
+    .image-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 16px;
+        width: 100%;
+    }
+
+    .image-card {
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 200px;
+    }
+
+    .image-card img {
+        max-width: 100%;
+        max-height: 100%;
+        object-fit: cover;
+        border-radius: 8px;
+    }
+</style>
+
+<div class="container py-5">
+    <div class="text-center mb-5">
+        <h1 class="display-4 text-primary">Welcome to Our Website</h1>
+    </div>
+
+    <!-- Hiển thị hình ảnh -->
+    <div class="row justify-content-center mt-4">
+    @if (imagePaths.Count > 0)
+    {
+        <div class="image-grid">
+            @foreach (var imagePath in imagePaths)
+            {
+                <div class="image-card">
+                    <img src="@Url.Content($"~/{imagePath}")" alt="Submission Image" class="img-fluid rounded shadow" />
+                </div>
+            }
+        </div>
+    }
+    else
+    {
+        <div class="col-md-12 text-center">
+            <p class="text-muted">No images available.</p>
+        </div>
+    }
+</div>
+
+</div>

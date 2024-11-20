@@ -1,0 +1,101 @@
+﻿@model Idea.Models.NIdea
+
+@{
+    ViewData["Title"] = "Details";
+    var Comments = (List<Comment>)ViewData["Comments"];
+}
+
+<div class="container py-5">
+    <div class="text-center mb-4">
+        <h1 class="text-primary">Details</h1>
+        <p class="text-muted">Detailed information about the selected idea.</p>
+    </div>
+
+    <div class="card shadow mb-4">
+        <div class="card-header bg-primary text-white">
+            <h4 class="mb-0">Information</h4>
+        </div>
+        <div class="card-body">
+            <dl class="row">
+                <dt class="col-sm-3">Title</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Title)</dd>
+
+                <dt class="col-sm-3">Brief</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Brief)</dd>
+
+                <dt class="col-sm-3">Content</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Content)</dd>
+
+                <dt class="col-sm-3">File Path</dt>
+                <dd class="col-sm-9">
+                    @if (!string.IsNullOrEmpty(Model.FilePath))
+                    {
+                        <img src="@Url.Content($"~/{Model.FilePath}")" alt="Image for Idea" class="img-fluid border" />
+                    }
+                    else
+                    {
+                        <span class="text-danger">No image available</span>
+                    }
+                </dd>
+
+                <dt class="col-sm-3">View Count</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.View)</dd>
+
+                <dt class="col-sm-3">Submission ID</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Submission.Id)</dd>
+
+                <dt class="col-sm-3">Category</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.Category.Id)</dd>
+
+                <dt class="col-sm-3">User ID</dt>
+                <dd class="col-sm-9">@Html.DisplayFor(model => model.UserId)</dd>
+            </dl>
+        </div>
+    </div>
+
+    <!-- Comment Section -->
+    @if (Model.Submission.Deadline_2 >= DateTime.Now)
+    {
+        <div class="card shadow mb-4">
+            <div class="card-header bg-success text-white">
+                <h4 class="mb-0">Add Comment</h4>
+            </div>
+            <div class="card-body">
+                <form class="input-group" asp-action="Comment">
+                    <input type="hidden" name="IdeaId" value="@Model.Id" />
+                    <input type="text" class="form-control" placeholder="Write your comment here" name="Content" />
+                    <button class="btn btn-primary" type="submit">Submit</button>
+                </form>
+            </div>
+        </div>
+    }
+
+    <!-- Display Comments -->
+    <div class="card shadow mb-4">
+        <div class="card-header bg-info text-white">
+            <h4 class="mb-0">Comments</h4>
+        </div>
+        <div class="card-body">
+            @if (Comments != null && Comments.Any())
+            {
+                @foreach (var comment in Comments)
+                {
+                    <div class="mb-3">
+                        <strong>@comment.Created_Date:</strong> @comment.Content
+                    </div>
+                    <hr />
+                }
+            }
+            else
+            {
+                <p class="text-muted">No comments available for this idea.</p>
+            }
+        </div>
+    </div>
+
+    <div class="text-center">
+        <a asp-action="ViewIdeas" asp-route-submissionid="@Model.SubmissionId" class="btn btn-secondary">
+            <span class="material-icons">arrow_back</span> Back to List
+        </a>
+    </div>
+</div>

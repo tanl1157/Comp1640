@@ -1,0 +1,150 @@
+﻿@model Idea.Models.ApplicationUser
+
+@{
+    ViewData["Title"] = "User Details";
+}
+
+
+<div class="container py-5">
+    <div class="text-center mb-4">
+        <h1 class="text-primary">User Details</h1>
+        <p class="text-muted">Detailed information for user: <strong>@Model.UserName</strong></p>
+    </div>
+
+    <div class="text-center mb-4">
+        <a asp-action="Index" class="btn btn-secondary me-2">
+            <span class="material-icons">arrow_back</span> Back
+        </a>
+        <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary">
+            <span class="material-icons">edit</span> Edit User
+        </a>
+    </div>
+
+    <div class="row">
+        <!-- Profile Section -->
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white text-center">
+                    <h5>Profile</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <th class="text-end">First Name</th>
+                                <td>@Html.DisplayFor(model => model.FirstName)</td>
+                            </tr>
+                            <tr>
+                                <th class="text-end">Last Name</th>
+                                <td>@Html.DisplayFor(model => model.LastName)</td>
+                            </tr>
+                            <tr>
+                                <th class="text-end">SSN</th>
+                                <td>@Html.DisplayFor(model => model.SSN)</td>
+                            </tr>
+                            <tr>
+                                <th class="text-end">Passport ID</th>
+                                <td>@Html.DisplayFor(model => model.PassportID)</td>
+                            </tr>
+                            <tr>
+                                <th class="text-end">Gender</th>
+                                <td>@Html.DisplayFor(model => model.Gender)</td>
+                            </tr>
+                            <tr>
+                                <th class="text-end">Birthday</th>
+                                <td>@Html.DisplayFor(model => model.Birthday)</td>
+                            </tr>
+                            <tr>
+                                <th class="text-end">Alternative Email</th>
+                                <td>@Html.DisplayFor(model => model.AlternativeEmail)</td>
+                            </tr>
+                            <tr>
+                                <th class="text-end">Alternative Phone</th>
+                                <td>@Html.DisplayFor(model => model.AlternativePhone)</td>
+                            </tr>
+                            <tr>
+                                <th class="text-end">Address</th>
+                                <td>@Html.DisplayFor(model => model.Address)</td>
+                            </tr>
+                            <tr>
+                                <th class="text-end">Others</th>
+                                <td>@Html.DisplayFor(model => model.Others)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <!-- Account Information Section -->
+        <div class="col-lg-6 mb-4">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white text-center">
+                    <h5>Account Information</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table table-bordered">
+                        <tbody>
+                            <tr>
+                                <th class="text-end">Username</th>
+                                <td>@Html.DisplayFor(model => model.UserName)</td>
+                            </tr>
+                            <tr>
+                                <th class="text-end">Normalized Username</th>
+                                <td>@Html.DisplayFor(model => model.NormalizedUserName)</td>
+                            </tr>
+                            <tr>
+                                <th class="text-end">Email</th>
+                                <td>@Html.DisplayFor(model => model.Email)</td>
+                            </tr>
+                            <tr>
+                                <th class="text-end">Normalized Email</th>
+                                <td>@Html.DisplayFor(model => model.NormalizedEmail)</td>
+                            </tr>
+                            <tr>
+                                <th class="text-end">Email Confirmed</th>
+                                <td>@Html.DisplayFor(model => model.EmailConfirmed)</td>
+                            </tr>
+                            <tr>
+                                <th class="text-end">Password Hash</th>
+                                <td style="word-break: break-word;">@Html.DisplayFor(model => model.PasswordHash)</td>
+                            </tr>
+                            <tr>
+                                <th class="text-end">Security Stamp</th>
+                                <td>@Html.DisplayFor(model => model.SecurityStamp)</td>
+                            </tr>
+                            <tr>
+                                <th class="text-end">Concurrency Stamp</th>
+                                <td>@Html.DisplayFor(model => model.ConcurrencyStamp)</td>
+                            </tr>
+                            <tr>
+                                <th class="text-end">Phone Number</th>
+                                <td>@Html.DisplayFor(model => model.PhoneNumber)</td>
+                            </tr>
+                            <tr>
+                                <th class="text-end">Phone Number Confirmed</th>
+                                <td>@Html.DisplayFor(model => model.PhoneNumberConfirmed)</td>
+                            </tr>
+                            <tr>
+                                <th class="text-end">Two Factor Enabled</th>
+                                <td>@Html.DisplayFor(model => model.TwoFactorEnabled)</td>
+                            </tr>
+                            <tr>
+                                <th class="text-end">Lockout End</th>
+                                <td>@Html.DisplayFor(model => model.LockoutEnd)</td>
+                            </tr>
+                            <tr>
+                                <th class="text-end">Lockout Enabled</th>
+                                <td>@Html.DisplayFor(model => model.LockoutEnabled)</td>
+                            </tr>
+                            <tr>
+                                <th class="text-end">Access Failed Count</th>
+                                <td>@Html.DisplayFor(model => model.AccessFailedCount)</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

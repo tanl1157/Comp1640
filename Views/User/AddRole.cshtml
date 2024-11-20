@@ -1,0 +1,85 @@
+﻿@model Idea.Models.ApplicationUser
+
+@{
+    ViewData["Title"] = "Assign Roles";
+
+    var currentRoles = (List<Microsoft.AspNetCore.Identity.IdentityRole>) ViewData["currentRoles"];
+    var remainingRoles = (List<Microsoft.AspNetCore.Identity.IdentityRole>) ViewData["remainingRoles"];
+}
+
+
+
+<div class="container py-5">
+    <div class="text-center mb-4">
+        <h1 class="text-primary">Assign Roles</h1>
+        <p class="text-muted">
+            Manage roles for user: <strong>@Model.UserName</strong>
+        </p>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card shadow">
+                <div class="card-header bg-primary text-white text-center">
+                    <h5>Current Roles</h5>
+                </div>
+                <div class="card-body">
+                    @if (currentRoles.Count == 0)
+                    {
+                        <p class="text-center text-muted">There are no current roles assigned.</p>
+                    }
+                    else
+                    {
+                        <ul class="list-group">
+                            @foreach (var role in currentRoles)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span>@role.Name</span>
+                                    <form asp-action="DeleteRole" class="m-0">
+                                        <input type="hidden" asp-for="Id" name="userId" />
+                                        <input type="hidden" value="@role.Id" name="roleId" />
+                                        <button type="submit" class="btn btn-danger btn-sm">
+                                            <span class="material-icons">remove</span> Remove
+                                        </button>
+                                    </form>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-6 mb-4">
+            <div class="card shadow">
+                <div class="card-header bg-success text-white text-center">
+                    <h5>Remaining Roles</h5>
+                </div>
+                <div class="card-body">
+                    @if (remainingRoles.Count == 0)
+                    {
+                        <p class="text-center text-muted">There are no more roles to add.</p>
+                    }
+                    else
+                    {
+                        <ul class="list-group">
+                            @foreach (var role in remainingRoles)
+                            {
+                                <li class="list-group-item d-flex justify-content-between align-items-center">
+                                    <span>@role.Name</span>
+                                    <form asp-action="AddRole" class="m-0">
+                                        <input type="hidden" asp-for="Id" name="userId" />
+                                        <input type="hidden" value="@role.Id" name="roleId" />
+                                        <button type="submit" class="btn btn-success btn-sm">
+                                            <span class="material-icons">add</span> Add
+                                        </button>
+                                    </form>
+                                </li>
+                            }
+                        </ul>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
